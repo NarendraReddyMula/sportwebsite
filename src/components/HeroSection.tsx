@@ -18,7 +18,7 @@ const delays = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
 function fadeUpVariant(delay: number) {
   return {
     initial: { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut', delay } },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.7, delay } },
   }
 }
 
