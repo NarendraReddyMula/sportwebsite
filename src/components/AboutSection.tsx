@@ -54,9 +54,7 @@ export default function AboutSection() {
                   alt={personal.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
-                  }}
+               
                 />
               </div>
               {/* Badge */}
@@ -64,7 +62,7 @@ export default function AboutSection() {
                 <span className="text-2xl">⚡</span>
                 <div>
                   <div className="text-xs text-slate-500 dark:text-slate-400">Experience</div>
-                  <div className="text-sm font-bold text-slate-900 dark:text-white">1+ Years</div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-white">2+ Years</div>
                 </div>
               </div>
             </div>

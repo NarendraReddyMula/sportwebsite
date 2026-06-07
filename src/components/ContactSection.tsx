@@ -6,7 +6,6 @@ import { toast } from 'sonner'
 import { Send, Mail, MapPin, MessageSquare } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterXIcon } from './SocialIcons'
 import { personal } from '../data/portfolioData'
-import { api } from '../api'
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -59,14 +58,36 @@ export default function ContactSection() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
+  const recipientEmail = (import.meta.env.VITE_CONTACT_TO_EMAIL as string | undefined) || personal.email
+
   const onSubmit = async (data: FormData) => {
     try {
-      await api.post('/contact', data)
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipientEmail)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+          _subject: `Portfolio Contact: ${data.subject}`,
+          _replyto: data.email,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send contact message')
+      }
+
       toast.success("Message sent! I'll get back to you soon.")
       reset()
     } catch {
-      toast.success("Message sent! I'll get back to you soon.")
-      reset()
+      toast.error('Message could not be sent. Please try again in a moment.')
     }
   }
 

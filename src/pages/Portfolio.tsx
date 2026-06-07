@@ -83,7 +83,7 @@ export default function Portfolio() {
         <SkillsSection />
         <ProjectsSection />
         <ExperienceSection />
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
         <ContactSection />
       </main>
 

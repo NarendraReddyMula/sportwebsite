@@ -7,7 +7,7 @@ export const personal = {
   phone: '9014612778',
   location: 'Hyderabad, India',
   resumeUrl: '/resume.pdf',
-  avatar: '/narendra.jpg',
+  avatar: '/imagenani.jpg',
   social: {
     github: 'https://github.com/NarendraReddy15',
     linkedin: 'https://linkedin.com/in/narendrareddymula',

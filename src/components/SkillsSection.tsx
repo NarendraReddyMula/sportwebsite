@@ -104,8 +104,8 @@ export default function SkillsSection() {
           variants={stagger}
         >
           {[
-            { value: '50+', label: 'Projects shipped' },
-            { value: '1+', label: 'Years experience' },
+            { value: '10+', label: 'Projects shipped' },
+            { value: '2+', label: 'Years experience' },
             { value: '20+', label: 'Happy clients' },
             { value: '12k+', label: 'GitHub stars' },
           ].map(stat => (
