@@ -58,29 +58,32 @@ export default function ContactSection() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const recipientEmail = (import.meta.env.VITE_CONTACT_TO_EMAIL as string | undefined) || personal.email
+  const web3FormsAccessKey =
+    (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) ||
+    'a242a615-7c81-4fd6-94be-93f95f6de4b5'
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipientEmail)}`, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify({
+          access_key: web3FormsAccessKey,
           name: data.name,
           email: data.email,
           subject: data.subject,
           message: data.message,
-          _subject: `Portfolio Contact: ${data.subject}`,
-          _replyto: data.email,
-          _template: 'table',
-          _captcha: 'false',
+          from_name: data.name,
+          replyto: data.email,
         }),
       })
 
-      if (!response.ok) {
+      const result = (await response.json()) as { success?: boolean; message?: string }
+
+      if (!response.ok || !result.success) {
         throw new Error('Failed to send contact message')
       }
 
